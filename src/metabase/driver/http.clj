@@ -43,6 +43,7 @@
 (def json-type->base-type
   {:string  :type/Text
    :number  :type/Float
+   :date  :type/Date
    :boolean :type/Boolean})
 
 (driver/register! :http)
