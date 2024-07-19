@@ -63,11 +63,14 @@
   (let [table-def  (database->table-def database (:name table))]
     {:name   (:name table-def)
      :schema (:schema table-def)
-     :fields (set (for [field (:fields table-def)]
-                    {:name          (:name field)
-                     :database-type (:type field)
-                     :base-type     (or (:base_type field)
-                                        (json-type->base-type (keyword (:type field))))}))}))
+     :fields (set (map-indexed
+                   (fn [idx field]
+                     {:name          (:name field)
+                      :database-type (:type field)
+                      :base-type     (or (:base_type field)
+                                         (json-type->base-type (keyword (:type field))))
+                      :database-position      idx})
+                   (:fields table-def)))}))
 
 (defmethod driver/mbql->native :http [_ query]
   (let [database    (qp.store/database)
