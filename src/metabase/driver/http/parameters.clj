@@ -27,7 +27,7 @@
      t)))
 
 (defn- param-value->str
-  [{special-type :special_type, :as field} x]
+  [{special-type :special-type, :as field} x]
   (println "param-value->str" x)
   (cond
       ;; sequences get converted to `$in`
